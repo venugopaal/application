@@ -1,11 +1,14 @@
 var express=require('express');
-var app =express();
-var pm2=require('pm2');
-console.log( express);
-app.get('/',function(req,res){
-    res.send("hello");
-});
+var mongoose=require('mongoose');
+var app=express();
+var bodyParser = require('body-parser');
+mongoose.connect('mongodb://localhost:27017/adhar');
+var db=mongoose.connection;
 
-app.listen(process.env.port||3000,function(){
+app.use(bodyParser.json());
+
+app.use('/',require('./routs/persion'));
+
+app.listen(3000,function(){
     console.log("server at 3000");
 });
